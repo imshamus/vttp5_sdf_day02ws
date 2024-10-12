@@ -1,6 +1,7 @@
 package src;
 
-import java.io.Console;
+import java.text.DecimalFormat;
+// import java.io.Console;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -85,7 +86,9 @@ public class BankAccount
             if(this.accBal>amount)
             {
                 this.accBal = this.accBal - amount;
-                    System.out.printf("Withdrew amount: $%s \n", amount);
+                DecimalFormat formattedAmt = new DecimalFormat("#.00") // format to .00
+                
+                System.out.printf("Withdrew amount: $%s \n", amount);
                 // System.out.println(this.accBal); // Test
 
                 String amountString = Float.toString(amount);
