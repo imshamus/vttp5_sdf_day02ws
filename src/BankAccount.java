@@ -15,14 +15,14 @@ public class BankAccount
 
     // Read and write properties
     private float accBal;           // Float is object that is set to null, value unknown; float is primitive, guaranteed value
-    private List<String> AccTx;     // String is a custom class of char, an array of char
+    private List<String> accTx;     // String is a custom class of char, an array of char
     private boolean accClosed;      // Boolean is custom class that has more methods, Boolean is an object, boolean is primitive type
     private Date accCreateDate;
     private Date accCloseDate;
 
    
     // METHODS
-    private String generateAcc()    // Generate Random Acc No.
+    private String generateAcc()    // Method 1 - Generate Random Acc No.
     {
         
         String accNo = "";
@@ -42,7 +42,7 @@ public class BankAccount
 
     }
 
-    public void deposit(float amount)
+    public void deposit(float amount)   // Method 2 - Deposit amount
     {
         if(!this.accClosed)
         {
@@ -53,24 +53,20 @@ public class BankAccount
             else
             {
                 this.accBal = this.accBal + amount;
-                System.out.printf("Deposit amt: %s \n", amount);
-                System.out.println(this.accBal);
+                System.out.printf("Deposited amount: $%s \n", amount);
+                // System.out.println(this.accBal); // test
 
                 String amountString = Float.toString(amount);
                 Date dateNow = new Date();
                 String dateString = dateNow.toString();
                 
-                String txOutput = String.format("Deposited %s at %s", amountString, dateString);
-                AccTx.add(txOutput);
-                AccTx.add("hello");
-                AccTx.add("Bye");
-                AccTx.add("Goodbye");
+                String txOutput = String.format("Deposited $%s at <%s>", amountString, dateString);
+                
+                this.accTx.add(txOutput);
 
-                System.out.println(AccTx);
-
-
+                // Transcations(accTx);
             
-                // AccTx.add("Deposited %.2f at %tD %tT \n", amount, LocalDateTime.now(), LocalDateTime.now());
+                // accTx.add("Deposited %.2f at %tD %tT \n", amount, LocalDateTime.now(), LocalDateTime.now()); // Uses LocalDate import
                 // System.out.printf("Deposited %.2f at %tD %tT \n", amount, LocalDateTime.now(), LocalDateTime.now());
             }
 
@@ -82,7 +78,43 @@ public class BankAccount
         
     }
 
+    public void Withdraw(float amount)  // Method 3 - Withdrawing money
+    {
+        if(!this.accClosed)
+        {
+            if(this.accBal>amount)
+            {
+                this.accBal = this.accBal - amount;
+                    System.out.printf("Withdrew amount: $%s \n", amount);
+                // System.out.println(this.accBal); // Test
 
+                String amountString = Float.toString(amount);
+                Date dateNow = new Date();
+                String dateString = dateNow.toString();
+
+                String txOutput = String.format("Withdrew $%s at <%s> \n", amountString, dateString);
+
+                this.accTx.add(txOutput);
+                // Transcations(accTx);
+            }
+            else
+            {
+                throw new IllegalArgumentException("Account balance lesser than withdraw amount. Transcation aborted.");
+            }
+        }
+        else
+        {
+            throw new IllegalArgumentException("Account is closed. Transcation aborted.");
+        }       
+    }
+
+    public void Transcations () // Method 4 - Display transactions line-by-line
+    {
+        for(String Tx : this.accTx)
+        {
+            System.out.println(Tx);
+        }
+    }
 
     // Constructors
     public BankAccount(String accName) 
@@ -90,7 +122,7 @@ public class BankAccount
         this.accNo = generateAcc();
         this.accName = accName;
         this.accBal = 0.0f;
-        this.AccTx = new ArrayList<>();
+        this.accTx = new ArrayList<>();
     }
 
     
@@ -100,7 +132,7 @@ public class BankAccount
         this.accNo = generateAcc();
         this.accName = accName;
         this.accBal = accBal;
-        this.AccTx = new ArrayList<>();
+        this.accTx = new ArrayList<>();
     }
 
 
@@ -122,11 +154,11 @@ public class BankAccount
     }
 
     public List<String> getAccTx() {
-        return AccTx;
+        return accTx;
     }
 
     public void setAccTx(List<String> accTx) {
-        AccTx = accTx;
+        this.accTx = accTx;
     }
 
     public boolean isAccClosed() {
