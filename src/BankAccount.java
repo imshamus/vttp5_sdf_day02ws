@@ -1,6 +1,5 @@
 package src;
 
-import java.text.DecimalFormat;
 // import java.io.Console;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +10,7 @@ public class BankAccount
 {
 
     // Read only properties         - Set when class created, cannot be changed during the lifetime of the instance
-    private final String accName;   // good practice to caps final objects
+    private final String accName;   // good practice to caps final objects?
     private final String accNo;
 
     // Read and write properties
@@ -54,7 +53,7 @@ public class BankAccount
             else
             {
                 this.accBal = this.accBal + amount;
-                System.out.printf("Deposited amount: $%s \n", amount);
+                System.out.printf("Deposited amount: $%.2f \n", amount);
                 // System.out.println(this.accBal); // test
 
                 String amountString = Float.toString(amount);
@@ -86,9 +85,8 @@ public class BankAccount
             if(this.accBal>amount)
             {
                 this.accBal = this.accBal - amount;
-                DecimalFormat formattedAmt = new DecimalFormat("#.00") // format to .00
-                
-                System.out.printf("Withdrew amount: $%s \n", amount);
+                                              
+                System.out.printf("Withdrew amount: $%.2f \n", amount);
                 // System.out.println(this.accBal); // Test
 
                 String amountString = Float.toString(amount);
@@ -119,7 +117,7 @@ public class BankAccount
         }
     }
 
-    // Constructors
+    // CONSTRUCTORS
     public BankAccount(String accName) 
     {
         this.accNo = generateAcc();
@@ -139,7 +137,7 @@ public class BankAccount
     }
 
 
-    // Getter Setter
+    // GETTERS SETTERS
     public String getAccName() {
         return accName;
     }
